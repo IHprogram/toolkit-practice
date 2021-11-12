@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
 // 型を定義

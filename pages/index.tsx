@@ -13,16 +13,47 @@ import {
   taskCreate,
   selectTask
 } from '../src/features/task/taskSlice';
+import { useAppDispatch, useAppSelector } from '../src/app/customHooks'
+
+interface TaskType {
+  taskId: number,
+  task: string
+}
+
+const initialTask: TaskType = {
+  taskId: 1,
+  task: ''
+};
 
 const Home: NextPage = () => {
-  const count = useSelector(selectCount);
-  const taskState = useSelector(selectTask);
-  const dispatch = useDispatch();
-  const [task, setTask] = useState('');
+  // const count = useSelector(selectCount);
+  // const taskState = useSelector(selectTask);
+  const dispatch = useAppDispatch();
+
+  const count = useAppSelector(selectCount);
+  const tasks = useAppSelector(selectTask.selectAll);
+
+  const [task, setTask] = useState(initialTask);
   const register = () => {
     // console.log(task)
-    console.log(taskState)
+    console.log(task)
+    console.log(tasks)
     dispatch(taskCreate(task))
+    const nextId: number = task.taskId + 1;
+    const clearTask: TaskType = {
+      taskId: nextId,
+      task: ''
+    }
+    setTask(clearTask);
+  }
+
+  const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTask: TaskType = {
+      taskId: task.taskId,
+      task: e.target.value
+    }
+    console.log(newTask)
+    setTask(newTask)
   }
 
   return (
@@ -35,11 +66,11 @@ const Home: NextPage = () => {
       <button onClick={() => dispatch(decrementCounter())}>ひく</button>
 
       <form>
-        <input onChange={(e) => setTask(e.target.value)} />
+        <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeValue(e)} value={task.task} />
         <button type="button" onClick={() => register()}>タスク送信</button>
       </form>
       <ul>
-        {taskState.map((task, index) => <li key={index}>{task}</li>)}
+        {tasks.map((task) => <li key={task.taskId}>{task.task}</li>)}
       </ul>
     </div>
   )
