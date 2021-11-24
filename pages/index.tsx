@@ -14,6 +14,7 @@ import {
   selectTask
 } from '../src/features/task/taskSlice';
 import { useAppDispatch, useAppSelector } from '../src/app/customHooks'
+import Task from '../components/Task';
 
 interface TaskType {
   taskId: number,
@@ -35,7 +36,6 @@ const Home: NextPage = () => {
 
   const [task, setTask] = useState(initialTask);
   const register = () => {
-    // console.log(task)
     console.log(task)
     console.log(tasks)
     dispatch(taskCreate(task))
@@ -70,7 +70,7 @@ const Home: NextPage = () => {
         <button type="button" onClick={() => register()}>タスク送信</button>
       </form>
       <ul>
-        {tasks.map((task) => <li key={task.taskId}>{task.task}</li>)}
+        {tasks.map((task: TaskType) => <Task key={task.taskId} task={task.task} />)}
       </ul>
     </div>
   )

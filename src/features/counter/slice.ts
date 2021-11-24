@@ -6,19 +6,19 @@ export interface CounterState {
   count: number;
 };
 
-export interface TaskState {
-  task: string[];
-}
+// export interface TaskState {
+//   task: string[];
+// }
 
 export const initialState: CounterState = {
   count: 0,
 };
 
-export const taskInitialState: TaskState = {
-  task: ['task初期値です'],
-};
+// export const taskInitialState: TaskState = {
+//   task: ['task初期値です'],
+// };
 
-export type EntityId = number | string;
+export type EntityId = number;
 
 export interface EntityState<T> {
   ids: EntityId[];
@@ -41,18 +41,18 @@ const counterSlice = createSlice({
   }
 });
 
-const taskCreateSlice = createSlice({
-  name: 'task',
-  initialState: taskInitialState,
-  reducers: {
-    taskCreate: (state, action: PayloadAction<string>) => {
-      state.task.push(action.payload)
-    }
-  }
-});
+// const taskCreateSlice = createSlice({
+//   name: 'task',
+//   initialState: taskInitialState,
+//   reducers: {
+//     taskCreate: (state, action: PayloadAction<string>) => {
+//       state.task.push(action.payload)
+//     }
+//   }
+// });
 
 export const { incrementCounter, decrementCounter } = counterSlice.actions;
-export const { taskCreate } = taskCreateSlice.actions;
+// export const { taskCreate } = taskCreateSlice.actions;
 
 
 // 「state.counter」と言う名前がapp/store.tsの変数storeのreducerのcounterと一致している必要あり
